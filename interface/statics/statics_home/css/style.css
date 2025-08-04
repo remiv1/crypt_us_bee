@@ -1,0 +1,34 @@
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --bee-color: #e9ae2cff;
+}
+
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.nav-link.text-secondary {
+  text-shadow: var(--bee-color) 0px 0px 5px;
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  padding: 10px;
+  text-align: center;
+}

@@ -5,36 +5,26 @@ from pathlib import Path
 from keys_creation import USB_LABEL, KEY_FOLDER, IDENTIFIER_FILE, PUBLIC_KEY_FILE, PRIVATE_KEY_FILE
 import tkinter as tk
 from tkinter import messagebox
-
-
-def find_usb_mount_linux() -> Path | None:
-    """🔍 Détecte le point de montage de la clé USB (Linux uniquement pour l'instant)."""
-    media_path = Path("/media")
-    for user_dir in media_path.iterdir():
-        for device in user_dir.iterdir():
-            if USB_LABEL in device.name:
-                return device
-    return None
-
-def find_usb_mount_windows() -> Path | None:
-    """🔍 Détecte le point de montage de la clé USB (Windows)."""
-    import win32api
-    drives = win32api.GetLogicalDriveStrings().split('\\\\')
-    for drive in drives:
-        if drive and USB_LABEL in drive:
-            return Path(drive)
-    return None 
+import psutil
 
 
 def find_usb_mount() -> Path | None:
-    """🔍 Combine les fonctions de détection pour Linux et Windows."""
-    return find_usb_mount_linux() or find_usb_mount_windows()
+    """🔍 Détecte la clé USB avec psutil (cross-platform)."""
+    try:
+        for partition in psutil.disk_partitions():
+            if ('removable' in partition.opts) or (partition.fstype in ['vfat', 'exfat', 'ntfs']):
+                mount_path = Path(partition.mountpoint)
+                if (mount_path.name == USB_LABEL) or (USB_LABEL in mount_path.name):
+                    return mount_path
+    except ImportError:
+        print("⚠️ psutil non installé. Utilisez: pip install psutil")
+    return None
 
 def generate_keys() -> tuple[bytes, bytes]:
     """🔐 Génère une paire de clés RSA."""
     key = RSA.generate(2048)
-    private_key: bytes = key.export_key()
-    public_key: bytes = key.publickey().export_key()
+    private_key: bytes = key.export_key(format='PEM')
+    public_key: bytes = key.publickey().export_key(format='PEM')
     return private_key, public_key
 
 def encrypt_identifier(public_key: bytes) -> bytes:
@@ -44,13 +34,11 @@ def encrypt_identifier(public_key: bytes) -> bytes:
     encrypted_id: bytes = cipher.encrypt(identifier)
     return encrypted_id
 
-def write_to_usb(mount_point: Path, private_key: bytes, public_key: bytes, encrypted_id: bytes) -> None:
+def write_to_usb(mount_point: Path, public_key: bytes, encrypted_id: bytes) -> None:
     """💾 Écrit les fichiers sur la clé USB."""
     target_dir: Path = mount_point / KEY_FOLDER
     target_dir.mkdir(exist_ok=True)
 
-    with open(target_dir / PRIVATE_KEY_FILE, "wb") as f:
-        f.write(private_key)
     with open(target_dir / PUBLIC_KEY_FILE, "wb") as f:
         f.write(public_key)
     with open(target_dir / IDENTIFIER_FILE, "wb") as f:
