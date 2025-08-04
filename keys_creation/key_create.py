@@ -2,7 +2,7 @@ import uuid
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 from pathlib import Path
-from keys_creation import USB_LABEL, KEY_FOLDER, IDENTIFIER_FILE, PUBLIC_KEY_FILE, PRIVATE_KEY_FILE
+from keys_creation import USB_LABEL, KEY_FOLDER, IDENTIFIER_FILE, PUBLIC_KEY_FILE
 import tkinter as tk
 from tkinter import messagebox
 import psutil
@@ -39,6 +39,8 @@ def write_to_usb(mount_point: Path, public_key: bytes, encrypted_id: bytes) -> N
     target_dir: Path = mount_point / KEY_FOLDER
     target_dir.mkdir(exist_ok=True)
 
+    # TODO: Stocker la clé privée en base de données sécurisée
+
     with open(target_dir / PUBLIC_KEY_FILE, "wb") as f:
         f.write(public_key)
     with open(target_dir / IDENTIFIER_FILE, "wb") as f:
@@ -53,9 +55,9 @@ def main() -> None:
         messagebox.showerror("Erreur", "❌ Clé USB non détectée. Assurez-vous qu'elle est montée et nommée correctement.")
         return
 
-    private_key, public_key = generate_keys()
+    _, public_key = generate_keys()
     encrypted_id = encrypt_identifier(public_key)
-    write_to_usb(mount_point, private_key, public_key, encrypted_id)
+    write_to_usb(mount_point, public_key, encrypted_id)
     messagebox.showinfo("Succès", f"✅ Clé USB d'authentification créée sur {mount_point}")
 
 if __name__ == "__main__":
