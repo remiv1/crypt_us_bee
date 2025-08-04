@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <!--CSS Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--CSS Personnalisé-->
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/style.css') }}">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('home.static', filename='img/favicon.svg') }}" type="image/x-icon">
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <header>
+        <div class="px-3 py-2 bg-dark text-white">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                    <img src="{{ url_for('home.static', filename='img/Logo_sombre.svg') }}" alt="Logo Crypt'Us Bee" width="150" height="120" class="me-2">
+                </a>
+
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                    <li><a
+                        id="{{ id }}" href="{{ url_for('home.index') }}"
+                        class="nav-link {% if ac == 0 %}text-white active{% else %}text-secondary{% endif %}">Accueil</a></li>
+                    <li><a
+                        id="dashboard" href="{{ url_for('home.dashboard') }}"
+                        class="nav-link {% if ac == 2 %}text-white active{% else %}text-secondary{% endif %}">Tableau de bord</a></li>
+                    <li><a
+                        id="postes" href="{{ url_for('home.workstations') }}"
+                        class="nav-link {% if ac == 3 %}text-white active{% else %}text-secondary{% endif %}">Postes de travail</a></li>
+                    <li><a
+                        id="cles" href="{{ url_for('home.keys') }}"
+                        class="nav-link {% if ac == 4 %}text-white active{% else %}text-secondary{% endif %}">Clés</a></li>
+                    <li><a
+                        id="utilisateurs" href="{{ url_for('home.users') }}"
+                        class="nav-link {% if ac == 5 %}text-white active{% else %}text-secondary{% endif %}">Utilisateurs</a></li>
+                    <li><a
+                        id="apropos" href="{{ url_for('home.about') }}"
+                        class="nav-link {% if ac == 1 %}text-white active{% else %}text-secondary{% endif %}">À propos</a></li>
+                </ul>
+                </div>
+            </div>
+            </div>
+            <div class="px-3 py-2 border-bottom mb-3">
+            <div class="container d-flex flex-wrap justify-content-center">
+                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+                <input type="search" class="form-control" placeholder="Rechercher..." aria-label="Rechercher" spellcheck="false" data-ms-editor="true">
+                </form>
+
+                <div class="text-end">
+                <button type="button" class="btn btn-light text-dark me-2">Se connecter</button>
+                <button type="button" class="btn btn-primary">Mon compte</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Crypt'Us Bee</p>
+    </footer>
+    <script src="{{ url_for('home.static', filename='js/main.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script></body>
+</html>
