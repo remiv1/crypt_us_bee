@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock, mock_open
 from pathlib import Path
 from keys_creation.key_create import find_usb_mount, generate_keys, encrypt_identifier, write_to_usb
 import sys
-from keys_creation import USB_LABEL, IDENTIFIER_FILE, PUBLIC_KEY_FILE, PRIVATE_KEY_FILE, KEY_FOLDER
+from keys_creation import USB_LABEL, IDENTIFIER_FILE, PUBLIC_KEY_FILE, KEY_FOLDER
 sys.path.append("i:\\crypt_us_bee")
 
 class TestKeyCreate(unittest.TestCase):
@@ -40,19 +40,16 @@ class TestKeyCreate(unittest.TestCase):
     @patch("builtins.open", new_callable=mock_open)
     def test_write_to_usb(self, mock_open: MagicMock, mock_mkdir: MagicMock):
         mount_point = Path(f"/media/{USB_LABEL}")
-        private_key = b"private_key_content"
         public_key = b"public_key_content"
         encrypted_id = b"encrypted_id_content"
 
-        write_to_usb(mount_point, private_key, public_key, encrypted_id)
+        write_to_usb(mount_point, public_key, encrypted_id)
 
         mock_mkdir.assert_called_once_with(exist_ok=True)
-        mock_open.assert_any_call(mount_point / KEY_FOLDER / PRIVATE_KEY_FILE, "wb")
         mock_open.assert_any_call(mount_point / KEY_FOLDER / PUBLIC_KEY_FILE, "wb")
         mock_open.assert_any_call(mount_point / KEY_FOLDER / IDENTIFIER_FILE, "wb")
 
         handle = mock_open()
-        handle.write.assert_any_call(private_key)
         handle.write.assert_any_call(public_key)
         handle.write.assert_any_call(encrypted_id)
 
@@ -62,15 +59,13 @@ class TestKeyCreate(unittest.TestCase):
         test_dir.mkdir(parents=True, exist_ok=True)
 
         mount_point = test_dir
-        private_key = b"private_key_content"
         public_key = b"public_key_content"
         encrypted_id = b"encrypted_id_content"
 
         # Appelle la fonction réelle
-        write_to_usb(mount_point, private_key, public_key, encrypted_id)
+        write_to_usb(mount_point, public_key, encrypted_id)
 
         # Vérifie que les fichiers ont été créés
-        self.assertTrue((mount_point / KEY_FOLDER / PRIVATE_KEY_FILE).exists())
         self.assertTrue((mount_point / KEY_FOLDER / PUBLIC_KEY_FILE).exists())
         self.assertTrue((mount_point / KEY_FOLDER / IDENTIFIER_FILE).exists())
 

@@ -10,12 +10,12 @@ interface.register_blueprint(home_bp)
 interface.register_blueprint(admin_bp)
 
 @interface.before_request
-def before_request():
+def before_request() -> None:
     """Hook to run before each request."""
     pass
 
 @interface.after_request
-def after_request(response: Any):
+def after_request(response: Any) -> Any:
     """Hook to run after each request."""
     return response
 
