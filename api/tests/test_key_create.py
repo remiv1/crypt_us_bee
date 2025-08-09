@@ -1,14 +1,15 @@
 import unittest
 from unittest.mock import patch, MagicMock, mock_open
 from pathlib import Path
-from api.keys_creation.key_create import find_usb_mount, generate_keys, encrypt_identifier, write_to_usb
 import sys
+from api.keys_creation.key_create import find_usb_mount, generate_keys, encrypt_identifier, write_to_usb
 from api.keys_creation import USB_LABEL, IDENTIFIER_FILE, PUBLIC_KEY_FILE, KEY_FOLDER
-sys.path.append("i:\\crypt_us_bee")
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 class TestKeyCreate(unittest.TestCase):
 
-    @patch("keys_creation.key_create.psutil.disk_partitions")
+    @patch("api.keys_creation.key_create.psutil.disk_partitions")
     def test_find_usb_mount(self, mock_disk_partitions: MagicMock):
         mock_partition = MagicMock()
         mock_partition.opts = "removable"
@@ -25,8 +26,8 @@ class TestKeyCreate(unittest.TestCase):
         self.assertTrue(private_key.startswith(b"-----BEGIN RSA PRIVATE KEY-----"))
         self.assertTrue(public_key.startswith(b"-----BEGIN PUBLIC KEY-----"))
 
-    @patch("keys_creation.key_create.RSA.import_key")
-    @patch("keys_creation.key_create.PKCS1_OAEP.new")
+    @patch("api.keys_creation.key_create.RSA.import_key")
+    @patch("api.keys_creation.key_create.PKCS1_OAEP.new")
     def test_encrypt_identifier(self, mock_cipher_new: MagicMock, mock_import_key: MagicMock):
         mock_cipher = MagicMock()
         mock_cipher.encrypt.return_value = b"encrypted_data"
@@ -36,7 +37,7 @@ class TestKeyCreate(unittest.TestCase):
         result = encrypt_identifier(public_key)
         self.assertEqual(result, b"encrypted_data")
 
-    @patch("keys_creation.key_create.Path.mkdir")
+    @patch("api.keys_creation.key_create.Path.mkdir")
     @patch("builtins.open", new_callable=mock_open)
     def test_write_to_usb(self, mock_open: MagicMock, mock_mkdir: MagicMock):
         mount_point = Path(f"/media/{USB_LABEL}")
