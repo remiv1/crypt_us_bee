@@ -1,0 +1,5 @@
+FROM mongo:8.0.13-rc1
+
+# Copie le script d'initialisation
+COPY ./base/init.js /docker-entrypoint-initdb.d/
+

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="45cm" height="54cm" viewBox="131 -382 888 1069" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #e9ae2c" x="148.9" y="-380.8" width="233" height="251"/>
+    <path style="fill: #e9ae2c" d="M 148.9,-380.8 A 16,16 0 0 0 132.9,-364.8 L 148.9,-364.8 z"/>
+    <path style="fill: #e9ae2c" d="M 397.9,-364.8 A 16,16 0 0 0 381.9,-380.8 L 381.9,-364.8 z"/>
+    <rect style="fill: #e9ae2c" x="132.9" y="-364.8" width="265" height="219"/>
+    <path style="fill: #e9ae2c" d="M 132.9,-145.8 A 16,16 0 0 0 148.9,-129.8 L 148.9,-145.8 z"/>
+    <path style="fill: #e9ae2c" d="M 381.9,-129.8 A 16,16 0 0 0 397.9,-145.8 L 381.9,-145.8 z"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="148.9" y1="-380.8" x2="381.9" y2="-380.8"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="148.9" y1="-129.8" x2="381.9" y2="-129.8"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 148.9,-380.8 A 16,16 0 0 0 132.9,-364.8"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 397.9,-364.8 A 16,16 0 0 0 381.9,-380.8"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="132.9" y1="-364.8" x2="132.9" y2="-145.8"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="397.9" y1="-364.8" x2="397.9" y2="-145.8"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 132.9,-145.8 A 16,16 0 0 0 148.9,-129.8"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 381.9,-129.8 A 16,16 0 0 0 397.9,-145.8"/>
+    <text font-size="22.5778" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:oblique;font-weight:700" x="265.4" y="-250.611">
+      <tspan x="265.4" y="-250.611">Nginx</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e9ae2c" x="148.9" y="25.2" width="233" height="251"/>
+    <path style="fill: #e9ae2c" d="M 148.9,25.2 A 16,16 0 0 0 132.9,41.2 L 148.9,41.2 z"/>
+    <path style="fill: #e9ae2c" d="M 397.9,41.2 A 16,16 0 0 0 381.9,25.2 L 381.9,41.2 z"/>
+    <rect style="fill: #e9ae2c" x="132.9" y="41.2" width="265" height="219"/>
+    <path style="fill: #e9ae2c" d="M 132.9,260.2 A 16,16 0 0 0 148.9,276.2 L 148.9,260.2 z"/>
+    <path style="fill: #e9ae2c" d="M 381.9,276.2 A 16,16 0 0 0 397.9,260.2 L 381.9,260.2 z"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="148.9" y1="25.2" x2="381.9" y2="25.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="148.9" y1="276.2" x2="381.9" y2="276.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 148.9,25.2 A 16,16 0 0 0 132.9,41.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 397.9,41.2 A 16,16 0 0 0 381.9,25.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="132.9" y1="41.2" x2="132.9" y2="260.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="397.9" y1="41.2" x2="397.9" y2="260.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 132.9,260.2 A 16,16 0 0 0 148.9,276.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 381.9,276.2 A 16,16 0 0 0 397.9,260.2"/>
+    <text font-size="22.5778" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:oblique;font-weight:700" x="265.4" y="155.389">
+      <tspan x="265.4" y="155.389">App</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e9ae2c" x="766.9" y="172.2" width="233" height="251"/>
+    <path style="fill: #e9ae2c" d="M 766.9,172.2 A 16,16 0 0 0 750.9,188.2 L 766.9,188.2 z"/>
+    <path style="fill: #e9ae2c" d="M 1015.9,188.2 A 16,16 0 0 0 999.9,172.2 L 999.9,188.2 z"/>
+    <rect style="fill: #e9ae2c" x="750.9" y="188.2" width="265" height="219"/>
+    <path style="fill: #e9ae2c" d="M 750.9,407.2 A 16,16 0 0 0 766.9,423.2 L 766.9,407.2 z"/>
+    <path style="fill: #e9ae2c" d="M 999.9,423.2 A 16,16 0 0 0 1015.9,407.2 L 999.9,407.2 z"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="766.9" y1="172.2" x2="999.9" y2="172.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="766.9" y1="423.2" x2="999.9" y2="423.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 766.9,172.2 A 16,16 0 0 0 750.9,188.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1015.9,188.2 A 16,16 0 0 0 999.9,172.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="750.9" y1="188.2" x2="750.9" y2="407.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1015.9" y1="188.2" x2="1015.9" y2="407.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 750.9,407.2 A 16,16 0 0 0 766.9,423.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 999.9,423.2 A 16,16 0 0 0 1015.9,407.2"/>
+    <text font-size="22.5778" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:oblique;font-weight:700" x="883.4" y="302.389">
+      <tspan x="883.4" y="302.389">PostgreSQL</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e9ae2c" x="768.9" y="-99.8" width="233" height="251"/>
+    <path style="fill: #e9ae2c" d="M 768.9,-99.8 A 16,16 0 0 0 752.9,-83.8 L 768.9,-83.8 z"/>
+    <path style="fill: #e9ae2c" d="M 1017.9,-83.8 A 16,16 0 0 0 1001.9,-99.8 L 1001.9,-83.8 z"/>
+    <rect style="fill: #e9ae2c" x="752.9" y="-83.8" width="265" height="219"/>
+    <path style="fill: #e9ae2c" d="M 752.9,135.2 A 16,16 0 0 0 768.9,151.2 L 768.9,135.2 z"/>
+    <path style="fill: #e9ae2c" d="M 1001.9,151.2 A 16,16 0 0 0 1017.9,135.2 L 1001.9,135.2 z"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="768.9" y1="-99.8" x2="1001.9" y2="-99.8"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="768.9" y1="151.2" x2="1001.9" y2="151.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 768.9,-99.8 A 16,16 0 0 0 752.9,-83.8"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1017.9,-83.8 A 16,16 0 0 0 1001.9,-99.8"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="752.9" y1="-83.8" x2="752.9" y2="135.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1017.9" y1="-83.8" x2="1017.9" y2="135.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 752.9,135.2 A 16,16 0 0 0 768.9,151.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1001.9,151.2 A 16,16 0 0 0 1017.9,135.2"/>
+    <text font-size="22.5778" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:oblique;font-weight:700" x="885.4" y="30.3889">
+      <tspan x="885.4" y="30.3889">MongoDB</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e9ae2c" x="148.9" y="434.2" width="233" height="251"/>
+    <path style="fill: #e9ae2c" d="M 148.9,434.2 A 16,16 0 0 0 132.9,450.2 L 148.9,450.2 z"/>
+    <path style="fill: #e9ae2c" d="M 397.9,450.2 A 16,16 0 0 0 381.9,434.2 L 381.9,450.2 z"/>
+    <rect style="fill: #e9ae2c" x="132.9" y="450.2" width="265" height="219"/>
+    <path style="fill: #e9ae2c" d="M 132.9,669.2 A 16,16 0 0 0 148.9,685.2 L 148.9,669.2 z"/>
+    <path style="fill: #e9ae2c" d="M 381.9,685.2 A 16,16 0 0 0 397.9,669.2 L 381.9,669.2 z"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="148.9" y1="434.2" x2="381.9" y2="434.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="148.9" y1="685.2" x2="381.9" y2="685.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 148.9,434.2 A 16,16 0 0 0 132.9,450.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 397.9,450.2 A 16,16 0 0 0 381.9,434.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="132.9" y1="450.2" x2="132.9" y2="669.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="397.9" y1="450.2" x2="397.9" y2="669.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 132.9,669.2 A 16,16 0 0 0 148.9,685.2"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 381.9,685.2 A 16,16 0 0 0 397.9,669.2"/>
+    <text font-size="22.5778" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:oblique;font-weight:700" x="265.4" y="564.389">
+      <tspan x="265.4" y="564.389">API</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="265.4,-129.8 265.4,-52.3 265.4,-52.3 265.4,15.4639 "/>
+    <polygon style="fill: #000000" points="265.4,22.9639 260.4,12.9639 265.4,15.4639 270.4,12.9639 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="265.4,22.9639 260.4,12.9639 265.4,15.4639 270.4,12.9639 "/>
+  </g>
+  <g>
+    <polygon style="fill: #000000" points="544.5,-328 565.5,-328 558.5,-287.081 577,-287.081 544.5,-175 551.5,-255.058 537,-255.058 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:oblique;font-weight:700" x="555" y="-153.287">
+      <tspan x="555" y="-153.287">Internet</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="555,-255.058 466.954,-255.058 466.954,-255.3 408.644,-255.3 "/>
+    <polygon style="fill: #000000" points="401.144,-255.3 411.144,-260.3 408.644,-255.3 411.144,-250.3 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="401.144,-255.3 411.144,-260.3 408.644,-255.3 411.144,-250.3 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="265.4,276.2 265.4,277.2 265.4,433.2 265.4,424.464 "/>
+    <polygon style="fill: #000000" points="265.4,431.964 270.4,441.964 265.4,439.464 260.4,441.964 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="265.4,431.964 270.4,441.964 265.4,439.464 260.4,441.964 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="199.15,434.2 199.15,353.6 199.15,353.6 199.15,285.936 "/>
+    <polygon style="fill: #000000" points="199.15,278.436 204.15,288.436 199.15,285.936 194.15,288.436 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="199.15,278.436 204.15,288.436 199.15,285.936 194.15,288.436 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="407.636,496.95 883,496.95 883,423.2 873.664,423.2 "/>
+    <polygon style="fill: #000000" points="400.136,496.95 410.136,491.95 407.636,496.95 410.136,501.95 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="400.136,496.95 410.136,491.95 407.636,496.95 410.136,501.95 "/>
+    <polygon style="fill: #000000" points="881.164,423.2 891.164,418.2 888.664,423.2 891.164,428.2 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="881.164,423.2 891.164,418.2 888.664,423.2 891.164,428.2 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="397.9,87.95 575.4,87.95 575.4,88.45 743.164,88.45 "/>
+    <polygon style="fill: #000000" points="750.664,88.45 740.664,93.45 743.164,88.45 740.664,83.45 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="750.664,88.45 740.664,93.45 743.164,88.45 740.664,83.45 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="750.9,234.95 574.4,234.95 574.4,150.7 407.636,150.7 "/>
+    <polygon style="fill: #000000" points="400.136,150.7 410.136,145.7 407.636,150.7 410.136,155.7 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="400.136,150.7 410.136,145.7 407.636,150.7 410.136,155.7 "/>
+  </g>
+</svg>

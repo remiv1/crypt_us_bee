@@ -5,7 +5,8 @@ FROM python:3.12
 WORKDIR /app
 
 # Copier les fichiers de l'application dans le conteneur
-COPY . /app
+# COPY . /app # En développement, le dossier des documents est monté en tant que volume
+COPY requirements-app.txt /app/requirements.txt
 
 # Installer les dépendances nécessaires
 RUN pip install --no-cache-dir --upgrade pip && \
@@ -15,4 +16,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 EXPOSE 5000
 
 # Définir la commande par défaut pour exécuter l'application
-CMD ["python", "app.py"]
+CMD ["python", "application.py"]

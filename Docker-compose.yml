@@ -3,13 +3,16 @@ services:
     image: nginx:latest
     container_name: bee_nginx
     ports:
-      - "443:443"
+      - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./static:/usr/share/nginx/html:ro
     depends_on:
       - app
       - api
+    restart: always
+    networks:
+      - bee-net
 
   app:
     build:
@@ -19,48 +22,81 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - ./app:/usr/src/app
+      - ./interface:/app
     ports:
-      - "3000:3000"
+      - "5000:5000"
+    networks:
+      - bee-net
 
   api:
+    container_name: bee-api
     build:
       context: ./api
-    container_name: bee-api
-    environment:
-      - DATABASE_URL=${POSTGRES_URL}
-      - MONGO_URL=${MONGO_URL}
+      dockerfile: Dockerfile.api
     volumes:
       - ./api:/usr/src/api
     ports:
       - "8000:8000"
     depends_on:
-      - mongodb
-      - postgres
+      mongodb:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - bee-net
 
   mongodb:
-    image: mongo:latest
+    build:
+      context: .
+      dockerfile: base/Dockerfile.mongo
     container_name: bee-mongodb
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-    volumes:
-      - mongodb_data:/data/db
+    restart: always
     ports:
       - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./base/init.js:/docker-entrypoint-initdb.d/init.js
+      - ./base/mongod.conf:/etc/mongod.conf
+    command: ['mongod', '--config', '/etc/mongod.conf']
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_HOST: ${MONGO_HOST}
+      MONGO_PORT: ${MONGO_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'db.runCommand({ ping: 1 })' | mongosh ${MONGO_INITDB_DATABASE} --username ${MONGO_INITDB_ROOT_USERNAME} --password ${MONGO_INITDB_ROOT_PASSWORD} --authenticationDatabase admin --quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - bee-net
 
   postgres:
     image: postgres:latest
     container_name: bee-postgres
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    networks:
+      - bee-net
 
 volumes:
   mongodb_data:
   postgres_data:
+
+networks:
+  bee-net:
+    driver: bridge

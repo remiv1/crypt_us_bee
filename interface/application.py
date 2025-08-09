@@ -2,6 +2,7 @@ from flask import Flask
 from routes.home import home_bp
 from routes.admin import admin_bp
 from typing import Any
+from waitress import serve
 
 interface = Flask(__name__)
 
@@ -20,4 +21,4 @@ def after_request(response: Any) -> Any:
     return response
 
 if __name__ == "__main__":
-    interface.run(debug=True, host='0.0.0.0', port=5001)
+    serve(interface, host='0.0.0.0', port=5000, threads=4)
