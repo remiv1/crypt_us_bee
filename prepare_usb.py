@@ -2,8 +2,8 @@ import os
 import platform
 import subprocess
 from pathlib import Path
-from keys_creation import KEY_FOLDER, USB_LABEL
-from keys_creation.key_create import generate_keys, encrypt_identifier, write_to_usb
+from api.keys_creation import KEY_FOLDER, USB_LABEL
+from api.keys_creation.key_create import generate_keys, encrypt_identifier, write_to_usb
 import tkinter as tk
 from tkinter import messagebox, filedialog
 

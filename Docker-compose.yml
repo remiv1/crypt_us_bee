@@ -100,3 +100,4 @@ volumes:
 networks:
   bee-net:
     driver: bridge
+    name: bee-net
