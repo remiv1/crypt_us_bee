@@ -2,8 +2,8 @@ import unittest
 from unittest.mock import patch, MagicMock, mock_open
 from pathlib import Path
 import sys
-from keys_creation.key_create import find_usb_mount, generate_keys, encrypt_identifier, write_to_usb
-from keys_creation import USB_LABEL, IDENTIFIER_FILE, PUBLIC_KEY_FILE, KEY_FOLDER
+from api.keys_creation.key_create import find_usb_mount, generate_keys, encrypt_identifier, write_to_usb
+from api.keys_creation import USB_LABEL, IDENTIFIER_FILE, PUBLIC_KEY_FILE, KEY_FOLDER
 sys.path.append("i:\\crypt_us_bee")
 
 class TestKeyCreate(unittest.TestCase):
