@@ -2,7 +2,7 @@ import uuid
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 from pathlib import Path
-from api.keys_creation import USB_LABEL, KEY_FOLDER, IDENTIFIER_FILE, PUBLIC_KEY_FILE
+from keys_creation import USB_LABEL, KEY_FOLDER, IDENTIFIER_FILE, PUBLIC_KEY_FILE
 import tkinter as tk
 from tkinter import messagebox
 import psutil
