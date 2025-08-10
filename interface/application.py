@@ -17,7 +17,7 @@ def before_request() -> None:
 
 @interface.after_request
 def after_request(response: Any) -> Any:
-    """Hook to run after each request."""
+    response.headers['Cache-Control'] = 'no-store'  #TODO Retrait option DEV
     return response
 
 if __name__ == "__main__":
