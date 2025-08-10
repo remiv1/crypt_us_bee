@@ -4,7 +4,8 @@ from pathlib import Path
 import sys
 from api.keys_creation.key_create import find_usb_mount, generate_keys, encrypt_identifier, write_to_usb
 from api.keys_creation import USB_LABEL, IDENTIFIER_FILE, PUBLIC_KEY_FILE, KEY_FOLDER
-sys.path.append("i:\\crypt_us_bee")
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 class TestKeyCreate(unittest.TestCase):
 
