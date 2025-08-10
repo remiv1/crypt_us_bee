@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session, g
 from routes.home import home_bp
 from routes.admin import admin_bp
 from typing import Any
@@ -13,7 +13,12 @@ interface.register_blueprint(admin_bp)
 @interface.before_request
 def before_request() -> None:
     """Hook to run before each request."""
-    pass
+    if not session.get('user_id'):
+        # Gérer le cas où la session n'existe pas
+        g.need_connection = True
+    else:
+        g.need_connection = False
+
 
 @interface.after_request
 def after_request(response: Any) -> Any:
