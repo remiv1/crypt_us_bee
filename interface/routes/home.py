@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, g
 from typing import List, Dict, Any
 
 home_bp = Blueprint('home',
@@ -27,39 +27,45 @@ def index():
     return render_template(template_name_or_list=pages_list[0]['html'],
                            ac=pages_list[0]['place'],
                            title=pages_list[0]['title'],
-                           id=pages_list[0]['id'])
+                           id=pages_list[0]['id'],
+                           to_connect=getattr(g, 'need_connection', False))
 
 @home_bp.route('/about', methods=['GET'])
 def about():
     return render_template(template_name_or_list=pages_list[1]['html'],
                            ac=pages_list[1]['place'],
                            title=pages_list[1]['title'],
-                           id=pages_list[1]['id'])
+                           id=pages_list[1]['id'],
+                           to_connect=getattr(g, 'need_connection', False))
 
 @home_bp.route('/dashboard', methods=['GET'])
 def dashboard():
     return render_template(template_name_or_list=pages_list[2]['html'],
                            ac=pages_list[2]['place'],
                            title=pages_list[2]['title'],
-                           id=pages_list[2]['id'])
+                           id=pages_list[2]['id'],
+                           to_connect=getattr(g, 'need_connection', False))
 
 @home_bp.route('/workstations', methods=['GET'])
 def workstations():
     return render_template(template_name_or_list=pages_list[3]['html'],
                            ac=pages_list[3]['place'],
                            title=pages_list[3]['title'],
-                           id=pages_list[3]['id'])
+                           id=pages_list[3]['id'],
+                           to_connect=getattr(g, 'need_connection', False))
 
 @home_bp.route('/keys', methods=['GET'])
 def keys():
     return render_template(template_name_or_list=pages_list[4]['html'],
                            ac=pages_list[4]['place'],
                            title=pages_list[4]['title'],
-                           id=pages_list[4]['id'])
+                           id=pages_list[4]['id'],
+                           to_connect=getattr(g, 'need_connection', False))
 
 @home_bp.route('/users', methods=['GET'])
 def users():
     return render_template(template_name_or_list=pages_list[5]['html'],
                            ac=pages_list[5]['place'],
                            title=pages_list[5]['title'],
-                           id=pages_list[5]['id'])
+                           id=pages_list[5]['id'],
+                           to_connect=getattr(g, 'need_connection', False))

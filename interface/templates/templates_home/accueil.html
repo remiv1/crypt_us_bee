@@ -57,10 +57,37 @@
             </div>
         </div>
     </header>
+    <!-- Contenu principal -->
     <main>
         {% block content %}
         {% endblock %}
+        <!-- Conteneur de pop-up -->
+        <div class="modal fade" id="popup" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupLabel">Titre du pop-up</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body {% if to_connect|default(false) %}d-block{% else %}d-none{% endif %}">
+                        <!-- Formulaire de connexion -->
+                        <form>
+                            <div class="mb-3">
+                                <label for="identifiant" class="form-label">Identifiant</label>
+                                <input type="text" class="form-control" id="identifiant" placeholder="identifiant..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mot de passe</label>
+                                <input type="password" class="form-control" id="password" placeholder="mot de passe..." required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+    <!-- Pied de page -->
     <footer>
         <p>&copy; 2025 Crypt'Us Bee</p>
     </footer>

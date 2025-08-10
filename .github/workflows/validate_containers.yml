@@ -1,0 +1,47 @@
+name: Validate Containerization
+
+on:
+  push:
+    branches:
+      - Interfaces_fonctions
+      - main
+  pull_request:
+    branches:
+      - Interfaces_fonctions
+      - main
+
+jobs:
+  validate-containers:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+
+    - name: Build and start containers
+      run: |
+        docker-compose -f Docker-compose.yml up -d
+
+    - name: Verify other containers are running
+      run: |
+        RUNNING_CONTAINERS=$(docker ps -q | wc -l)
+        if [ "$RUNNING_CONTAINERS" -eq 0 ]; then
+          echo "All containers stopped, which is not expected." && exit 1
+        else
+          echo "Other containers are still running."
+        fi
+
+    - name: Clean up
+      if: always()
+      run: |
+        docker-compose -f Docker-compose.yml down
