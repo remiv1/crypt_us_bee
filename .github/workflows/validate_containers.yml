@@ -23,7 +23,7 @@ jobs:
 
     - name: Build and start containers
       run: |
-        docker compose up -d
+        docker compose -f docker-compose.yml up -d
 
     - name: Stop API container
       run: |
@@ -41,4 +41,4 @@ jobs:
     - name: Clean up
       if: always()
       run: |
-        docker-compose down
+        docker compose down
