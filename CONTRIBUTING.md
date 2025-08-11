@@ -65,7 +65,7 @@ Il faut prévoir un système anti-copy de la clé.
   - MSI pour Windows
   - DEB/RPM pour Linux
   - PKG pour MacOS
-- Gérer les mise à jour 
+- Gérer les mise à jour
 
 ## Besoins
 

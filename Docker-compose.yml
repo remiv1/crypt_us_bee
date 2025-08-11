@@ -29,6 +29,12 @@ services:
       - bee-net
 
   api:
+    environment:
+      - MONGO_HOST=${MONGO_HOST}
+      - MONGO_PORT=${MONGO_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     container_name: bee-api
     build:
       context: ./api
