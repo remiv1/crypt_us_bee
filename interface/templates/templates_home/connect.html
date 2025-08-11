@@ -1,0 +1,24 @@
+{% extends "templates_home/accueil.html" %}
+
+{% block content %}
+<!-- Formulaire de connexion -->
+<div class="container mt-5">
+    <form id="loginForm" enctype="multipart/form-data" action="{{ url_for('home.connect') }}" method="POST">
+        <div class="mb-3">
+            <input name="pseudo" type="text" class="form-control" id="pseudo" placeholder="identifiant..." required>
+        </div>
+        <div class="mb-3">
+            <input name="pwd" type="password" class="form-control" id="pwd" placeholder="mot de passe..." required>
+        </div>
+        <div class="mb-3">
+            <label for="id_file" class="form-label">Identifiant</label>
+            <input name="id_file" type="file" id="id_file" class="form-control" accept=".key" required>
+        </div>
+        <div class="mb-3">
+            <label for="public_key_file" class="form-label">Clé publique</label>
+            <input name="public_key_file" type="file" id="public_key_file" class="form-control" accept=".pem" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+    </form>
+</div>
+{% endblock %}

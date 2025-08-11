@@ -1,6 +1,7 @@
-from flask import Flask, session, g
+from flask import Flask, session, g, request
 from routes.home import home_bp
 from routes.admin import admin_bp
+from routes.links import link_bp
 from typing import Any
 from waitress import serve
 
@@ -9,10 +10,17 @@ interface = Flask(__name__)
 # enregistrement des routes blueprints
 interface.register_blueprint(home_bp)
 interface.register_blueprint(admin_bp)
+interface.register_blueprint(link_bp)
 
 @interface.before_request
 def before_request() -> None:
     """Hook to run before each request."""
+    client_ip = request.remote_addr
+    if client_ip and client_ip.startswith('192.168.'):
+        g.local = True
+    else:
+        g.local = False
+
     if not session.get('user_id'):
         # Gérer le cas où la session n'existe pas
         g.need_connection = True

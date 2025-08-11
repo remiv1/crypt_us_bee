@@ -21,14 +21,66 @@ Merci de votre intérêt pour contribuer à ce projet ! Ce guide vous aidera à 
   3. Décrire votre proposition de manière détaillée.
   4. Donnez votre pseudo github pour pouvoir être ajouté à l'équipe de développement.
 
-## Besoins actuels
+## Etapes de développement
 
-- développeurs
-  - python
-  - architectures
-  - database (noSQL)
-  - front-end (HTML/Jinja)
-- ~~financial support~~
+### 1. Daemon multi-os
+
+Il faut prévoir un système anti-copy de la clé.
+
+- Windows Win USB / API PC/SC
+  - Surveillance des évènements :
+    - Device Arrival
+    - Device Removal
+- Linux
+  - déploiement d'un daemon lié à udev ou pcscd
+  - Ecouter les règles pour le device (ID) de la clé :
+    - ACTION=="add"
+    - ACTION=="remove"
+- MacOS
+  - Utiliser IOKit ou s'appuyer sur pcscd
+
+### 2. Canal sécurisé client --> navigateur
+
+- Création d'un websocket local (ws://localhost:port)
+- Connection au socket local avec un token JWT
+- A réception de { event: "key-removed" }, JS déclenche une routine de logout
+
+### 3. Déclanchement de la déconnexion
+
+- Lancement de la déconnexion lorsque JS détecte un événement de clé retirée.
+- purge locale de tous les jetons
+- redirection vers la page de connexion
+
+### 4. Sécurité et robustesse
+
+- Authentification mutuelle entre services OS et client web
+  - Joken JWT à durée de vie courte
+  - Certificats client TLS auto-signés vérifiés par l'extension
+- [Optional] Heartbeat régulier entre le client et le serveur
+- Journalisation horodatée des insertions retraits et des déconnexions.
+
+### 5. Distribution et déploiement
+
+- Packager les services et agents pour chaque OS :
+  - MSI pour Windows
+  - DEB/RPM pour Linux
+  - PKG pour MacOS
+- Gérer les mise à jour 
+
+## Besoins
+
+### Développeurs
+
+- python
+- packaging / distribution
+- architectures
+- database (noSQL et SQL)
+- front-end (HTML/Jinja)
+- compléments de navigateurs (chromium, firefox, brave, safari)
+
+### Financements
+
+- ~~support financier~~
 
 ## Souhaits
 
