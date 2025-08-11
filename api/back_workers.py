@@ -11,3 +11,7 @@ async def read_root():
 async def read_item(item_id: int, q: str | None = None):
     retour: Dict[str, Any] = {"item_id": item_id, 'q': q}
     return retour
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}

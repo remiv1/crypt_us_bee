@@ -70,6 +70,14 @@ jobs:
 
     - name: Build and start containers
       run: |
+        echo "MONGO_INITDB_ROOT_USERNAME=admin" >> .env
+        echo "MONGO_INITDB_ROOT_PASSWORD=adminpassword" >> .env
+        echo "MONGO_INITDB_DATABASE=my_database" >> .env
+        echo "MONGO_HOST=mongodb" >> .env
+        echo "MONGO_PORT=27017" >> .env
+        echo "POSTGRES_USER=postgres" >> .env
+        echo "POSTGRES_PASSWORD=postgrespassword" >> .env
+        echo "POSTGRES_DB=my_database" >> .env
         docker-compose -f Docker-compose.yml up -d
 
     - name: Verify other containers are running
