@@ -1,6 +1,6 @@
 FROM python:3.12-bullseye
 
-COPY ./api /api
+COPY . /api
 COPY ./requirements-api.txt /api/requirements.txt
 
 RUN pip install --no-cache-dir -r /api/requirements.txt

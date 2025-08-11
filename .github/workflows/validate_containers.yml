@@ -28,9 +28,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y docker-compose
 
-    - name: List files
-      run: ls -R
-
     - name: Build and start containers
       run: |
         docker-compose -f Docker-compose.yml up -d
