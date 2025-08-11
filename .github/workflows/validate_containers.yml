@@ -28,7 +28,7 @@ jobs:
 
     - name: Build and start containers
       run: |
-        docker-compose -f ./crypt_us_bee/crypt_us_bee/docker-compose.yml up -d
+        docker-compose -f ./crypt_us_bee/docker-compose.yml up -d
 
     - name: Stop API container
       run: |
