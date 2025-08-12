@@ -1,0 +1,30 @@
+# Informations de version pour l'exécutable Windows
+
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(1,0,0,0),
+    prodvers=(1,0,0,0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,
+    fileType=0x1,
+    subtype=0x0,
+    date=(0, 0)
+  ),
+  kids=[
+    StringFileInfo(
+      [
+      StringTable(
+        u'040904B0',
+        [StringStruct(u'CompanyName', u'CryptUSBee Project'),
+        StringStruct(u'FileDescription', u'CryptUSBee USB Authentication Daemon'),
+        StringStruct(u'FileVersion', u'1.0.0.0'),
+        StringStruct(u'InternalName', u'cryptusbee_daemon'),
+        StringStruct(u'LegalCopyright', u'Copyright (c) 2025 CryptUSBee Project'),
+        StringStruct(u'OriginalFilename', u'cryptusbee_daemon.exe'),
+        StringStruct(u'ProductName', u'CryptUSBee Daemon'),
+        StringStruct(u'ProductVersion', u'1.0.0.0')])
+      ]), 
+    VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
+  ]
+)
