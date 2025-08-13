@@ -5,16 +5,17 @@ Gestionnaire de configuration pour le daemon CryptUSBee
 import json
 import os
 from pathlib import Path
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Tuple
 from dataclasses import dataclass
 from cryptography.fernet import Fernet
 
+DAEMON_PORT = 8552
 
 @dataclass
 class WebSocketConfig:
     """Configuration du serveur WebSocket."""
     host: str = "localhost"
-    port: int = 8765
+    port: int = DAEMON_PORT
     ssl_enabled: bool = True
     cert_file: str = "daemon.crt"
     key_file: str = "daemon.key"
@@ -83,7 +84,7 @@ class ConfigManager:
         """Charge la configuration depuis le fichier."""
         if self.config_path.exists():
             with open(self.config_path, 'r', encoding='utf-8') as f:
-                config_data = json.load(f)
+                config_data: Dict[str, Any] = json.load(f)
         else:
             config_data = {}
             self._create_default_config()
@@ -96,7 +97,7 @@ class ConfigManager:
     
     def _create_default_config(self):
         """Crée un fichier de configuration par défaut."""
-        default_config = {
+        default_config: Dict[str, Any] = {
             "websocket": {
                 "host": "localhost",
                 "port": 8765,
@@ -125,7 +126,7 @@ class ConfigManager:
         
         self.save_config(default_config)
     
-    def save_config(self, config_data: Optional[Dict[str, Any]] = None):
+    def save_config(self, config_data: Optional[Dict[str, Any]] | None = None) -> None:
         """
         Sauvegarde la configuration dans le fichier.
         
@@ -183,7 +184,7 @@ class ConfigManager:
         else:
             raise ValueError(f"Section '{section}' ou clé '{key}' invalide")
     
-    def get_ssl_context(self) -> Optional[tuple]:
+    def get_ssl_context(self) -> Optional[Tuple[str, str]]:
         """
         Retourne le contexte SSL pour le WebSocket.
         

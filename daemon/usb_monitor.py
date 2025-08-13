@@ -12,7 +12,6 @@ from pathlib import Path
 from typing import Callable, Dict, Any, List
 
 import psutil
-from cryptography.exceptions import InvalidSignature
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
@@ -27,8 +26,8 @@ class USBEvent:
         self.device_path = device_path
         self.device_info = device_info
         self.timestamp = time.time()
-        self.is_cryptusbee = False
-        self.validation_status = "unknown"
+        self.is_cryptusbee: bool = False
+        self.validation_status: str | Dict[str, Any] = "unknown"
 
 
 class USBValidator:
@@ -89,10 +88,11 @@ class USBValidator:
             
             # Tentative de déchiffrement
             public_key = RSA.import_key(public_key_data)
-            cipher = PKCS1_OAEP.new(public_key)
+            cipher = PKCS1_OAEP.new(public_key) # type: ignore
             
             # Note: Pour une validation complète, nous aurions besoin de la clé privée
-            # Ici, nous validons seulement la structure
+            # Ici, nous validons seulement la structure. La clé privée sera validée par
+            # l'applicatif en ligne.
             
             return {
                 "valid": True,
@@ -113,7 +113,7 @@ class BaseUSBMonitor(ABC):
         self.logger = logging.getLogger(__name__)
         self.validator = USBValidator(config)
         self.running = False
-        self._known_devices: Dict[str, Dict[str, Any]] = {}
+        self.known_devices: Dict[str, Dict[str, Any]] = {}
     
     @abstractmethod
     async def start_monitoring(self):
@@ -137,13 +137,13 @@ class BaseUSBMonitor(ABC):
             
             if event.is_cryptusbee:
                 self.logger.info(f"✅ Clé CryptUSBee détectée: {device_path}")
-                self._known_devices[device_path] = validation
+                self.known_devices[device_path] = validation
             else:
                 self.logger.debug(f"📱 Périphérique USB non-CryptUSBee: {device_path}")
         
-        elif event_type == "removed" and device_path in self._known_devices:
+        elif event_type == "removed" and device_path in self.known_devices:
             event.is_cryptusbee = True
-            event.validation_status = self._known_devices.pop(device_path)
+            event.validation_status = self.known_devices.pop(device_path)
             self.logger.info(f"🔌 Clé CryptUSBee retirée: {device_path}")
         
         # Notification de l'événement
@@ -153,19 +153,19 @@ class BaseUSBMonitor(ABC):
 
 class WindowsUSBMonitor(BaseUSBMonitor):
     """Moniteur USB pour Windows utilisant WMI."""
-    
-    def __init__(self, *args, **kwargs):
+
+    def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         try:
-            import wmi
-            self.wmi = wmi.WMI()
+            import wmi  # type: ignore
+            self.wmi = wmi.WMI()    # type: ignore
         except ImportError:
             raise ImportError("Le module WMI est requis pour Windows")
     
     async def start_monitoring(self):
         """Démarre la surveillance WMI."""
         self.running = True
-        self.logger.info("🖥️ Démarrage de la surveillance USB Windows")
+        self.logger.info("Démarrage de la surveillance USB Windows")
         
         try:
             # Surveillance en arrière-plan
@@ -177,25 +177,25 @@ class WindowsUSBMonitor(BaseUSBMonitor):
     async def stop_monitoring(self):
         """Arrête la surveillance WMI."""
         self.running = False
-        self.logger.info("⏹️ Arrêt de la surveillance USB Windows")
+        self.logger.info("Arrêt de la surveillance USB Windows")
     
     async def _monitor_wmi_events(self):
         """Surveille les événements WMI en continu."""
         while self.running:
             try:
                 # Scan périodique des périphériques
-                current_drives = set()
+                current_drives: set[str] = set()
                 for drive in psutil.disk_partitions():
                     if 'removable' in drive.opts or drive.fstype in ['vfat', 'exfat', 'ntfs']:
                         current_drives.add(drive.mountpoint)
                 
                 # Détection des nouveaux périphériques
-                for drive in current_drives - set(self._known_devices.keys()):
+                for drive in current_drives - set(self.known_devices.keys()):
                     device_info = {"mountpoint": drive, "fstype": "removable"}
                     self._process_device_event("inserted", drive, device_info)
                 
                 # Détection des périphériques retirés
-                for drive in set(self._known_devices.keys()) - current_drives:
+                for drive in set(self.known_devices.keys()) - current_drives:
                     device_info = {"mountpoint": drive}
                     self._process_device_event("removed", drive, device_info)
                 
@@ -208,13 +208,13 @@ class WindowsUSBMonitor(BaseUSBMonitor):
 
 class LinuxUSBMonitor(BaseUSBMonitor):
     """Moniteur USB pour Linux utilisant udev."""
-    
-    def __init__(self, *args, **kwargs):
+
+    def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         try:
-            import pyudev
-            self.context = pyudev.Context()
-            self.monitor = pyudev.Monitor.from_netlink(self.context)
+            import pyudev   # type: ignore
+            self.context: Any = pyudev.Context()
+            self.monitor: Any = pyudev.Monitor.from_netlink(self.context)   # type: ignore
             self.monitor.filter_by(subsystem='block', device_type='disk')
         except ImportError:
             raise ImportError("Le module pyudev est requis pour Linux")
@@ -222,7 +222,7 @@ class LinuxUSBMonitor(BaseUSBMonitor):
     async def start_monitoring(self):
         """Démarre la surveillance udev."""
         self.running = True
-        self.logger.info("🐧 Démarrage de la surveillance USB Linux")
+        self.logger.info("Démarrage de la surveillance USB Linux")
         
         try:
             self.monitor.start()
@@ -234,7 +234,7 @@ class LinuxUSBMonitor(BaseUSBMonitor):
     async def stop_monitoring(self):
         """Arrête la surveillance udev."""
         self.running = False
-        self.logger.info("⏹️ Arrêt de la surveillance USB Linux")
+        self.logger.info("Arrêt de la surveillance USB Linux")
     
     async def _monitor_udev_events(self):
         """Surveille les événements udev."""
@@ -260,15 +260,15 @@ class LinuxUSBMonitor(BaseUSBMonitor):
 class MacOSUSBMonitor(BaseUSBMonitor):
     """Moniteur USB pour macOS utilisant IOKit."""
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
-        # Implementation macOS avec IOKit serait ici
+        # TODO: Implementation macOS avec IOKit serait ici
         pass
     
     async def start_monitoring(self):
         """Démarre la surveillance IOKit."""
         self.running = True
-        self.logger.info("🍎 Démarrage de la surveillance USB macOS")
+        self.logger.info("Démarrage de la surveillance USB macOS")
         
         # Pour l'instant, utilisation du fallback psutil
         await self._monitor_psutil_fallback()
@@ -276,23 +276,23 @@ class MacOSUSBMonitor(BaseUSBMonitor):
     async def stop_monitoring(self):
         """Arrête la surveillance IOKit."""
         self.running = False
-        self.logger.info("⏹️ Arrêt de la surveillance USB macOS")
+        self.logger.info("Arrêt de la surveillance USB macOS")
     
     async def _monitor_psutil_fallback(self):
         """Fallback utilisant psutil pour macOS."""
         while self.running:
             try:
-                current_drives = set()
+                current_drives: set[str] = set()
                 for drive in psutil.disk_partitions():
                     if 'removable' in drive.opts:
                         current_drives.add(drive.mountpoint)
                 
                 # Même logique que Windows
-                for drive in current_drives - set(self._known_devices.keys()):
+                for drive in current_drives - set(self.known_devices.keys()):
                     device_info = {"mountpoint": drive, "fstype": "removable"}
                     self._process_device_event("inserted", drive, device_info)
                 
-                for drive in set(self._known_devices.keys()) - current_drives:
+                for drive in set(self.known_devices.keys()) - current_drives:
                     device_info = {"mountpoint": drive}
                     self._process_device_event("removed", drive, device_info)
                 
@@ -324,14 +324,14 @@ class USBMonitor:
     
     async def start(self):
         """Démarre la surveillance USB."""
-        self.logger.info(f"🚀 Démarrage du moniteur USB pour {platform.system()}")
+        self.logger.info(f"Démarrage du moniteur USB pour {platform.system()}")
         await self.monitor.start_monitoring()
     
     async def stop(self):
         """Arrête la surveillance USB."""
-        self.logger.info("🛑 Arrêt du moniteur USB")
+        self.logger.info("Arrêt du moniteur USB")
         await self.monitor.stop_monitoring()
     
     def get_connected_cryptusbee_devices(self) -> List[Dict[str, Any]]:
         """Retourne la liste des clés CryptUSBee connectées."""
-        return list(self.monitor._known_devices.values())
+        return list(self.monitor.known_devices.values())

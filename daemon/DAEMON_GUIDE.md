@@ -58,7 +58,7 @@ Le daemon utilise un fichier de configuration JSON auto-généré :
 {
     "websocket": {
         "host": "localhost",
-        "port": 8765,
+        "port": DAEMON_PORT,
         "ssl_enabled": true
     },
     "usb": {
@@ -271,7 +271,7 @@ bandit -r . -x tests/
 
 ```powershell
 # Test de connectivité
-Test-NetConnection -ComputerName localhost -Port 8765
+Test-NetConnection -ComputerName localhost -Port 8552
 
 # Vérification du pare-feu
 Get-NetFirewallRule -DisplayName "CryptUSBee*"

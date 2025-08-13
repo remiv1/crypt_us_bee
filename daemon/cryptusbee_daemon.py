@@ -9,7 +9,8 @@ import logging
 import signal
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Callable, Coroutine, Any, List
+from types import FrameType
 
 from config_manager import ConfigManager
 from usb_monitor import USBMonitor
@@ -44,9 +45,15 @@ class CryptUSBeeDaemon:
         )
         return logging.getLogger(__name__)
     
+    def _wrap_async_callback(self, coro: Callable[..., Coroutine[Any, Any, Any]]) -> Callable[..., Any]:
+        """Convertit une coroutine en une fonction synchrone compatible."""
+        def wrapper(*args: Any, **kwargs: Any):
+            asyncio.run_coroutine_threadsafe(coro(*args, **kwargs), asyncio.get_event_loop())
+        return wrapper
+    
     async def start(self):
         """Démarre le daemon et tous ses composants."""
-        self.logger.info("🚀 Démarrage du daemon CryptUSBee")
+        self.logger.info("Démarrage du daemon CryptUSBee")
         
         try:
             # Initialisation du serveur WebSocket
@@ -55,7 +62,7 @@ class CryptUSBeeDaemon:
             # Initialisation du moniteur USB
             self.usb_monitor = USBMonitor(
                 config=self.config,
-                event_callback=self.websocket_server.broadcast_event
+                event_callback=self._wrap_async_callback(self.websocket_server.broadcast_event)
             )
             
             # Démarrage des services
@@ -66,13 +73,13 @@ class CryptUSBeeDaemon:
             )
             
         except Exception as e:
-            self.logger.error(f"❌ Erreur lors du démarrage : {e}")
+            self.logger.error(f"Erreur lors du démarrage : {e}")
             await self.stop()
             raise
     
     async def stop(self):
         """Arrête proprement le daemon."""
-        self.logger.info("🛑 Arrêt du daemon CryptUSBee")
+        self.logger.info("Arrêt du daemon CryptUSBee")
         
         # Arrêt des composants
         if self.usb_monitor:
@@ -86,11 +93,17 @@ class CryptUSBeeDaemon:
     async def _wait_for_shutdown(self):
         """Attend le signal d'arrêt."""
         await self._shutdown_event.wait()
-    
-    def _signal_handler(self, signum, frame):
+
+    def signal_handler(self, signum: int, frame: Optional[FrameType]):
         """Gestionnaire de signaux pour arrêt propre."""
-        self.logger.info(f"📡 Signal reçu: {signum}")
-        asyncio.create_task(self.stop())
+        self.logger.info(f"Signal reçu: {signum}, Frame: {frame}")
+        
+        # Sauvegarde de la tâche pour éviter la collecte prématurée
+        if not hasattr(self, "_tasks"):
+            self._tasks: List[Any] = []
+        
+        task = asyncio.create_task(self.stop())
+        self._tasks.append(task)
 
 
 def main():
@@ -98,19 +111,19 @@ def main():
     daemon = CryptUSBeeDaemon()
     
     # Configuration des gestionnaires de signaux
-    signal.signal(signal.SIGINT, daemon._signal_handler)
-    signal.signal(signal.SIGTERM, daemon._signal_handler)
+    signal.signal(signal.SIGINT, daemon.signal_handler)
+    signal.signal(signal.SIGTERM, daemon.signal_handler)
     
     try:
         # Démarrage du daemon
         asyncio.run(daemon.start())
     except KeyboardInterrupt:
-        daemon.logger.info("⌨️ Interruption clavier détectée")
+        daemon.logger.info("Interruption clavier détectée")
     except Exception as e:
-        daemon.logger.error(f"💥 Erreur fatale : {e}")
+        daemon.logger.error(f"Erreur fatale : {e}")
         sys.exit(1)
     finally:
-        daemon.logger.info("✅ Daemon arrêté proprement")
+        daemon.logger.info("Daemon arrêté proprement")
 
 
 if __name__ == "__main__":

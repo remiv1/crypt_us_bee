@@ -145,12 +145,12 @@ function Sign-CryptUSBeeFiles {
             }
             
             if ($LASTEXITCODE -eq 0) {
-                Write-Host "✅ $fileName signé avec succès" -ForegroundColor Green
+                Write-Host "$fileName signé avec succès" -ForegroundColor Green
             } else {
-                Write-Host "❌ Échec de la signature de $fileName" -ForegroundColor Red
+                Write-Host "Échec de la signature de $fileName" -ForegroundColor Red
             }
         } else {
-            Write-Host "⚠️ Fichier non trouvé: $fileName" -ForegroundColor Yellow
+            Write-Host "Fichier non trouvé: $fileName" -ForegroundColor Yellow
         }
     }
 }
@@ -201,10 +201,10 @@ function Test-FileSignature {
     
     $signature = Get-AuthenticodeSignature $FilePath
     
-    Write-Host "📄 Fichier: $(Split-Path $FilePath -Leaf)" -ForegroundColor Cyan
-    Write-Host "📋 Statut: $($signature.Status)" -ForegroundColor $(if ($signature.Status -eq "Valid") { "Green" } else { "Red" })
-    Write-Host "📜 Certificat: $($signature.SignerCertificate.Subject)" -ForegroundColor White
-    Write-Host "⏰ Horodatage: $($signature.TimeStamperCertificate.Subject)" -ForegroundColor White
+    Write-Host "Fichier: $(Split-Path $FilePath -Leaf)" -ForegroundColor Cyan
+    Write-Host "Statut: $($signature.Status)" -ForegroundColor $(if ($signature.Status -eq "Valid") { "Green" } else { "Red" })
+    Write-Host "Certificat: $($signature.SignerCertificate.Subject)" -ForegroundColor White
+    Write-Host "Horodatage: $($signature.TimeStamperCertificate.Subject)" -ForegroundColor White
     Write-Host ""
 }
 

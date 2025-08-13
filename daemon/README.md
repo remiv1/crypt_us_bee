@@ -82,7 +82,7 @@ Le daemon utilise un fichier de configuration `config.json` :
 {
     "websocket": {
         "host": "localhost",
-        "port": 8765,
+        "port": DAEMON_PORT,
         "ssl_enabled": true,
         "cert_file": "daemon.crt",
         "key_file": "daemon.key"
