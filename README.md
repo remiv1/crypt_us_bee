@@ -6,6 +6,40 @@ Le marché de la sécurité informatique est en pleine expansion, avec une deman
 
 [🔗 Page de comparaison](./documentation/first_doc.md)
 
+### 🔍 Comparaison avec les solutions SSO / OpenID / Auth0
+
+**Crypt'Us Bee** est une solution d’authentification matérielle et locale, conçue pour des environnements où la sécurité, la souveraineté des données et le contrôle granulaire sont prioritaires.  
+Contrairement aux solutions d’authentification centralisée comme **SSO (Single Sign-On)**, **OpenID Connect** ou **Auth0**, Crypt'Us Bee repose sur une approche décentralisée et renforcée.
+
+#### 🧭 Différences clés
+
+| Fonctionnalité                  | Crypt'Us Bee                                      | SSO / OpenID / Auth0                          |
+|----------------------------------|---------------------------------------------------|-----------------------------------------------|
+| **Type d’authentification**      | Triple facteur : mot de passe + token USB + biométrie (optionnel) | Authentification unique via identifiants      |
+| **Dépendance au cloud**          | Non (fonctionne en local ou intranet)             | Oui (souvent lié à des services cloud)        |
+| **Matériel requis**              | Clé USB sécurisée (token physique)                | Aucun matériel requis                         |
+| **Stockage des données**         | Bases SQL + NoSQL locales                         | Bases centralisées (souvent SaaS)             |
+| **Cas d’usage**                  | Sécurité renforcée, postes sensibles, fichiers cryptés | Accès simplifié à des apps web                |
+| **Contrôle administratif**       | Granulaire, par poste et par token                | Centralisé, dépendant du fournisseur          |
+| **Intégration biométrique**      | Optionnelle et locale                             | Rarement intégré                              |
+
+#### 🎯 Cas d’usage
+
+- **Crypt'Us Bee** est idéal pour les organisations qui souhaitent :
+  - Travailler en environnement isolé ou intranet.
+  - Protéger des postes critiques ou des fichiers sensibles.
+  - Garder le contrôle total sur l’infrastructure de sécurité.
+
+- **SSO / OpenID / Auth0** sont adaptés pour :
+  - Des applications web interconnectées.
+  - Une expérience utilisateur fluide sur plusieurs services.
+  - Une gestion centralisée des identités via des fournisseurs tiers.
+
+#### 🧩 Complémentarité possible
+
+Crypt'Us Bee peut aussi être intégré comme **couche de sécurité supplémentaire** dans une architecture hybride, en renforçant l’accès à des ressources critiques même dans un environnement SSO.
+
+
 ## 🚀 Stack Technique
 
 ### 🧠 Back-end
@@ -57,7 +91,7 @@ Le projet repose sur un triple niveau de sécurité :
 
 ### Prérequis
 
-- [ ] Kubernetes (K8S-K3S)
+- [ ] ~~Kubernetes (K8S-K3S)~~ (pour le moment, uniquement une version légère)
 - [ ] Docker
 - [ ] Make (Windows)
   - [ ] Lancement du fichier Make
